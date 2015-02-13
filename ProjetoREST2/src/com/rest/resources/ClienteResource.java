@@ -1,5 +1,7 @@
 package com.rest.resources;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -22,9 +24,10 @@ import com.rest.model.PaginatedListWrapper;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ClienteResource {
 	@EJB
+	private GenericsSearchDAO<Cliente> search;
+	@EJB
 	private ClienteDAO dao;
 	private Cliente c = new Cliente();
-	private GenericsSearchDAO search;
 
 	@GET
 	@Path("{id}")
@@ -47,11 +50,13 @@ public class ClienteResource {
 	public void excluirCliente(@PathParam("id") Long id) {
 		dao.remove(obterClientePorID(id));
 	}
-	
+
 	@GET
-	public PaginatedListWrapper<Cliente> listPersons(@DefaultValue("1") @QueryParam("page") Integer page, @DefaultValue("id") @QueryParam("sortFields") String sortFields,
+	public PaginatedListWrapper listClientes(
+			@DefaultValue("1") @QueryParam("page") Integer page,
+			@DefaultValue("id") @QueryParam("sortFields") String sortFields,
 			@DefaultValue("asc") @QueryParam("sortDirections") String sortDirections) {
-		PaginatedListWrapper<Cliente> paginatedListWrapper = new PaginatedListWrapper<Cliente>();
+		PaginatedListWrapper paginatedListWrapper = new PaginatedListWrapper();
 		paginatedListWrapper.setCurrentPage(page);
 		paginatedListWrapper.setSortFields(sortFields);
 		paginatedListWrapper.setSortDirections(sortDirections);
@@ -59,13 +64,13 @@ public class ClienteResource {
 		return findClientes(paginatedListWrapper);
 	}
 
-	private PaginatedListWrapper<Cliente> findClientes(
-			PaginatedListWrapper<Cliente> wrapper) {
+	private PaginatedListWrapper findClientes(PaginatedListWrapper wrapper) {
 		wrapper.setTotalResults(dao.count().intValue());
 		int start = (wrapper.getCurrentPage() - 1) * wrapper.getPageSize();
-		wrapper.setList(search.carregarPesquisaLazy(start, wrapper
+		List<Cliente> lista = search.carregarPesquisaLazy(start, wrapper
 				.getPageSize().intValue(), wrapper.getSortFields(), wrapper
-				.getSortDirections(), null, new Cliente()));
+				.getSortDirections(), null, new Cliente());
+		wrapper.setClientes(lista);
 		return wrapper;
 	}
 

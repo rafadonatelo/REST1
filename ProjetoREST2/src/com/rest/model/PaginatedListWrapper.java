@@ -1,19 +1,15 @@
 package com.rest.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.rest.dao.IGenericEntity;
-
 @XmlRootElement
-public class PaginatedListWrapper<T> implements Serializable {
+public class PaginatedListWrapper {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private Integer currentPage;
 	private Integer pageSize;
 	private Integer totalResults;
@@ -21,7 +17,7 @@ public class PaginatedListWrapper<T> implements Serializable {
 	private String sortFields;
 	private String sortDirections;
 	@XmlElement
-	private List<IGenericEntity> list;
+	private List<Cliente> clientes;
 
 	public Integer getCurrentPage() {
 		return currentPage;
@@ -63,12 +59,12 @@ public class PaginatedListWrapper<T> implements Serializable {
 		this.sortDirections = sortDirections;
 	}
 
-	public List<IGenericEntity> getList() {
-		return list;
+	public List<Cliente> getClientes() {
+		return clientes;
 	}
 
-	public void setList(List<IGenericEntity> list) {
-		this.list = list;
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 }
