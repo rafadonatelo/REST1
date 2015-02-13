@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,6 +41,9 @@ public class Cliente implements IGenericEntity, Serializable {
 	private Date ultimoAcesso;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataUltimaAtualizacao;
+	@Column(length = 15)
+	@Enumerated(EnumType.STRING)
+	private Status ativo;
 
 	public Cliente() {
 
@@ -98,6 +103,14 @@ public class Cliente implements IGenericEntity, Serializable {
 
 	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+	}
+
+	public Status getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Status ativo) {
+		this.ativo = ativo;
 	}
 
 }

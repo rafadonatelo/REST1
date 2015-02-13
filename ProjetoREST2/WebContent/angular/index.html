@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html ng-app="clientesApp">
+<head>
+<title>Home</title>
+<script src="js/angular.min.js"></script>
+<script src="js/modules/clientes.js"></script>
+</head>
+<body>
+	<div ng-controller="clientesController">
+		<div ng-repeat="c in paginatorWrapper.clientes">
+			{{c.nome}}
+		</div>
+	</div>
+</body>
+</html>
