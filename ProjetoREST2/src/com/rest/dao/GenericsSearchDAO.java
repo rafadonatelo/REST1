@@ -10,7 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import br.gov.ms.defensoria.intranet.sapdp.util.SimpleValidate;
+import com.rest.util.SimpleValidate;
 
 @Stateless
 public class GenericsSearchDAO {

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.rest.dao.IGenericEntity;
+
 @XmlRootElement
 public class PaginatedListWrapper<T> implements Serializable {
 	/**
@@ -19,7 +21,7 @@ public class PaginatedListWrapper<T> implements Serializable {
 	private String sortFields;
 	private String sortDirections;
 	@XmlElement
-	private List<T> list;
+	private List<IGenericEntity> list;
 
 	public Integer getCurrentPage() {
 		return currentPage;
@@ -61,11 +63,11 @@ public class PaginatedListWrapper<T> implements Serializable {
 		this.sortDirections = sortDirections;
 	}
 
-	public List<T> getList() {
+	public List<IGenericEntity> getList() {
 		return list;
 	}
 
-	public void setList(List<T> list) {
+	public void setList(List<IGenericEntity> list) {
 		this.list = list;
 	}
 

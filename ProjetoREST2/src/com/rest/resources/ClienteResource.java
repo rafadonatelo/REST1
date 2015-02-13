@@ -13,6 +13,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.rest.dao.ClienteDAO;
+import com.rest.dao.GenericsSearchDAO;
 import com.rest.model.Cliente;
 import com.rest.model.PaginatedListWrapper;
 
@@ -23,6 +24,7 @@ public class ClienteResource {
 	@EJB
 	private ClienteDAO dao;
 	private Cliente c = new Cliente();
+	private GenericsSearchDAO search;
 
 	@GET
 	@Path("{id}")
@@ -54,14 +56,17 @@ public class ClienteResource {
 		paginatedListWrapper.setSortFields(sortFields);
 		paginatedListWrapper.setSortDirections(sortDirections);
 		paginatedListWrapper.setPageSize(10);
-		return ;
+		return findClientes(paginatedListWrapper);
 	}
-	
-	private PaginatedListWrapper<Cliente> findPersons(PaginatedListWrapper<Cliente> wrapper) {
+
+	private PaginatedListWrapper<Cliente> findClientes(
+			PaginatedListWrapper<Cliente> wrapper) {
 		wrapper.setTotalResults(dao.count().intValue());
 		int start = (wrapper.getCurrentPage() - 1) * wrapper.getPageSize();
-		wrapper.setList(service.findPersons(start, wrapper.getPageSize(), wrapper.getSortFields(), wrapper.getSortDirections()));
+		wrapper.setList(search.carregarPesquisaLazy(start, wrapper
+				.getPageSize().intValue(), wrapper.getSortFields(), wrapper
+				.getSortDirections(), null, new Cliente()));
 		return wrapper;
 	}
-	
+
 }

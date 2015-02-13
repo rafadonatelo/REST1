@@ -1,4 +1,4 @@
-package br.gov.ms.defensoria.intranet.sapdp.util;
+package com.rest.util;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
